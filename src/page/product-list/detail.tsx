@@ -67,7 +67,8 @@ const ProductDetailsPage = () => {
       }
 
       const cartIndex = cartData.items.findIndex(cart => cart.name === product.name)
-      if (cartIndex !== -1) {
+      console.log("🚀 ~ handleAddToCart ~ cartIndex:", cartIndex)
+      if (cartIndex === -1) {
         dispatch(addToCart(product))
       }
       else {
