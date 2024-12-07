@@ -67,7 +67,6 @@ const ProductDetailsPage = () => {
       }
 
       const cartIndex = cartData.items.findIndex(cart => cart.name === product.name)
-      console.log("🚀 ~ handleAddToCart ~ cartIndex:", cartIndex)
       if (cartIndex === -1) {
         dispatch(addToCart(product))
       }
@@ -108,7 +107,7 @@ const ProductDetailsPage = () => {
               {product.name}
             </h1>
             <p className="text-3xl text-green-600 font-semibold mb-4">
-              {product.price}
+              {`${product.price.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}`}
             </p>
             <p className="text-gray-700 text-lg leading-relaxed mb-6">
               Elevate your experience with the {product.name}. Designed to
