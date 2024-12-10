@@ -37,8 +37,7 @@ function App() {
 
   const fetchCart = async (user: IUserData) => {
     const res = await getCartService(user?.id || '')
-    const data = res.data.items as any[]
-    console.log("🚀 ~ fetchCart ~ data:", data)
+    const data = res.data?.items as any[] || []
 
     const dataCart = data.map(item => {
       const cartItem = {
