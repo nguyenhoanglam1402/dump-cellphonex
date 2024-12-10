@@ -2,21 +2,32 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { removeFromCart, updateQuantity } from "../../redux/cart";
+import { addToCart, removeFromCart, updateQuantity } from "../../redux/cart";
 import { RootState } from "../../store";
 import { CartItem } from "../../types";
+import { removeCartService, updateCartService } from "../../services/cart";
 
 const Cart: React.FC = () => {
   const { cart } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleRemove = (id: string) => {
+  const handleRemove = async (id: string) => {
+    const temp = cart.items.find(item => item.id === id)
     dispatch(removeFromCart(id));
+    const resp = await removeCartService(id)
+    if (resp.status !== 200 && temp) {
+      dispatch(addToCart({ data: temp, amount: temp.quantity }));
+    }
   };
 
-  const handleQuantityChange = (id: string, quantity: number) => {
+  const handleQuantityChange = async (id: string, quantity: number) => {
+    const temp = cart.items.find(item => item.id === id)
     dispatch(updateQuantity({ id, quantity }));
+    const resp = await updateCartService({ id, quantity })
+    if (resp.status !== 200 && temp) {
+      dispatch(updateQuantity(temp));
+    }
   };
 
   const totalPrice = cart.items.reduce(

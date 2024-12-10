@@ -1,6 +1,23 @@
+import { useEffect, useState } from "react";
 import { categories } from "../constant/category";
+import { ICategoryData } from "../types/category.type";
+import { getCategories } from "../services/category.service";
 
 const Categories = () => {
+
+  const [categories, setCategories] = useState<ICategoryData[]>([])
+
+  const fetch = async () => {
+    const resp = await getCategories();
+    if (resp.status === 200) {
+      setCategories(resp.data.data)
+    }
+  }
+
+  useEffect(() => {
+    fetch()
+  }, [])
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h2 className="text-3xl font-bold text-center mb-6">Shop by Category</h2>
@@ -11,7 +28,7 @@ const Categories = () => {
             className="p-4 bg-white rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition-all"
           >
             <img
-              src={category.image}
+              src={category.pictureURL}
               alt={category.name}
               className="w-full h-40 object-cover rounded-lg"
             />

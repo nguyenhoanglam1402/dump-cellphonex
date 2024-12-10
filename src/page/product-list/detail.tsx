@@ -68,7 +68,7 @@ const ProductDetailsPage = () => {
 
       const cartIndex = cartData.items.findIndex(cart => cart.name === product.name)
       if (cartIndex === -1) {
-        dispatch(addToCart(product))
+        dispatch(addToCart({ data: product }))
       }
       else {
         dispatch(updateQuantity({ id: cartData.items[cartIndex].id, quantity: cartData.items[cartIndex].quantity + 1 }))

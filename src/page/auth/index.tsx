@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Input, Button } from "antd";
@@ -20,6 +21,7 @@ const LoginPage: React.FC = () => {
   const fetchCart = async (user: IUserData) => {
     const res = await getCartService(user?.id || '')
     const data = res.data.items as any[]
+    console.log("🚀 ~ fetchCart ~ data:", data)
 
     data.forEach(item => {
       const cartItem = {
@@ -31,9 +33,8 @@ const LoginPage: React.FC = () => {
         price: item.Product.price
 
       } as CartItem
-      console.log("🚀 ~ fetchCart ~ cartItem:", cartItem)
 
-      dispatch(addToCart(cartItem))
+      dispatch(addToCart({ data: cartItem, amount: cartItem.quantity }))
     })
 
   }

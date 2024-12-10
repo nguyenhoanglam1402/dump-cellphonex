@@ -53,7 +53,7 @@ const Checkout: React.FC = () => {
                     />
                     <div>
                       <h3 className="text-lg font-medium text-gray-800">{item.name}</h3>
-                      <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
+                      <p className="text-sm text-gray-500 text-left">Quantity: {item.quantity}</p>
                     </div>
                   </div>
                   <p className="text-gray-700 font-medium">
